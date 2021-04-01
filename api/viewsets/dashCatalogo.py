@@ -25,9 +25,11 @@ class DashboardCatalogoView(GenericViewSet):
         try:
             # Productos
             productos = Producto.objects.all().filter(activo=True)
+            total_de_productos= User.objects.all().count()
         
             data = {
                 'productos': ProductoSerializer(productos, many=True).data,
+                'total_de_productos' :total_de_productos
           
             }
             return Response(data, status=status.HTTP_200_OK)

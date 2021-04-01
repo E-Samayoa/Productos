@@ -12,12 +12,13 @@ from rest_framework.settings import api_settings
 from django.contrib.auth.models import User
 from api.models import Producto
 from api.serializers import ProductoSerializer, ProductoReadSerializer
+from api.permission import IsFree
 
 
 class ProductoViewset(viewsets.ModelViewSet):
 
-    queryset = Producto.objects.filter(activo= True)
-
+    queryset = Producto.objects.filter(activo=True)
+    permission_classes = (IsFree,)
     filter_backends = (DjangoFilterBackend, filters.SearchFilter, filters.OrderingFilter)
     filter_fields = ("nombre", )
     search_fields = ("nombre", )
@@ -29,15 +30,15 @@ class ProductoViewset(viewsets.ModelViewSet):
             return ProductoSerializer
         else:
             return ProductoReadSerializer
-
-    def get_permissions(self):
-        """" Define permisos para este recurso """
-        if self.action == "create" or self.action == "token":
-            permission_classes = [AllowAny]
-        else:
-            permission_classes = [IsAuthenticated]
-        return [permission() for permission in permission_classes]
-
+    '''
+        def get_permissions(self):
+            """" Define permisos para este recurso """
+            if self.action == "create" or self.action == "token":
+                permission_classes = [AllowAny]
+            else:
+                permission_classes = [IsAuthenticated]
+            return [permission() for permission in permission_classes]
+    '''
 
     def create(self, request):
             try:
@@ -84,8 +85,11 @@ class ProductoViewset(viewsets.ModelViewSet):
   
     def destroy(self, request, pk):
         try:
+            
             productos = Producto.objects.get(pk = pk)
-            productos.delete()
+            productos.delete(Producto.objects.update(activo=False))
+
+            
             return Response(status=status.HTTP_200_OK)
         except Exception as e:
             return Response({'detail': str(e)}, status=status.HTTP_400_BAD_REQUEST)

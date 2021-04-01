@@ -28,7 +28,7 @@ class Acciones extends Component {
     };
 
     render() {
-        const { id, ver, editar, eliminar } = this.props;
+        const { id, ver, editar, eliminar} = this.props;
 
         return (
             <div className="d-flex justify-content-center">

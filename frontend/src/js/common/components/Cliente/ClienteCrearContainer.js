@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import { actions } from '../../../redux/modules/cliente/cliente';
-import Catalogo from './Formulario';
+import Catalogo from './ClienteCrear';
 
 
 const ms2p = (state) => {

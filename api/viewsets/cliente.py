@@ -30,3 +30,18 @@ class ClienteViewset(viewsets.ModelViewSet):
             return ClienteSerializer
         else:
             return ClienteReadSerializer
+    
+    def create(self, request):
+            try:
+                data = request.data
+                print("data: ", data)
+                with transaction.atomic():
+                    serializer = ClienteReadSerializer(data=data)
+                    if serializer.is_valid():
+        
+                        
+                        return Response(data, status=status.HTTP_200_OK)
+                    else:
+                        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+            except Exception as e:
+                return Response({'detail': str(e)}, status=status.HTTP_400_BAD_REQUEST)

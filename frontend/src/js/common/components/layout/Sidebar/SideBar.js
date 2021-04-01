@@ -5,9 +5,19 @@ class SideBar extends Component {
     constructor(props) {
         super(props);
     }
-
+    
     render() {
         const { toggleOpen, navToggle, logOut } = this.props;
+
+        let cambio = false;
+        let disable = false;
+        if (localStorage.getItem('token')) {
+            cambio = true;
+            disable = true;
+
+        }else 
+            cambio = false;
+
         return (
             <aside className={`main-sidebar px-0 col-12 col-md-3 col-lg-2 ${toggleOpen?'':'open'}`}>
                 <div className="main-navbar">
@@ -37,6 +47,17 @@ class SideBar extends Component {
                                 <span>Home</span>
                             </NavLink>
                         </li>
+
+                        {cambio && 
+                        <li className="nav-item">
+                            <NavLink to="/productos" exact className="nav-link " activeClassName={'active'}>
+                                <div className="d-inline-block item-icon-wrapper">
+                                    <i className="material-icons">edit</i>
+                                </div>
+                                <span>Productos</span>
+                            </NavLink>
+                        </li>
+                        }
                         <li className="nav-item">
                             <NavLink to="/page2" className="nav-link" activeClassName={'active'}>
                                 <div className="d-inline-block item-icon-wrapper">

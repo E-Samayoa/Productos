@@ -52,7 +52,7 @@ class ListadoProductos extends Component{
                         dataSort
                     >
                         Precio
-                    </TableHeaderColumn>            
+                    </TableHeaderColumn>          
                     <TableHeaderColumn
                         
                         dataField="id"

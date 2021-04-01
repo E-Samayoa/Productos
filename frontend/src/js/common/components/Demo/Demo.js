@@ -5,15 +5,19 @@ import Grid from "../Utils/Grid";
 import { RenderCurrency} from "../Utils/renderField/renderReadField";
 
 class Demo extends Component {
+
     componentWillMount = () => {
         const {dashboard} =this.props
         dashboard();
     }
+
+    
     render() {
         const {data} = this.props;
         console.log("PROPS", this.props)
         console.log("Data dashboard: ", data);
         let disable = false;
+        
 
         if (localStorage.getItem('token')) {
             disable = true;
@@ -47,11 +51,12 @@ class Demo extends Component {
                                     {disable == false &&
                                     <a  
                                        
-                                        href = "/#/productos/comprar"
+                                        href = "/#/clientes/crear"
                                         type= "button"
                                         className="btn btn-outline-primary btn-sm mr-1"
+                                        
                                     >
-                                        Comprar 
+                                       Comprar 
                                     </a>
                                     }
                                    
